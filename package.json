@@ -1,0 +1,9 @@
+{
+  "name": "jspsych-staircase",
+  "version": "0.1.0",
+  "description": "A small framework that integrates with jsPsych to build staircase method timelines.",
+  "main": "src/lib.js",
+  "author": "Robin Bürkli <robuba.jr@gmx.ch>",
+  "license": "MIT",
+  "private": true
+}
