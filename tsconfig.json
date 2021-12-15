@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es6"
+    "module": "es6",
+    "declaration": true,
+    "noImplicitAny": true
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test.ts"]
