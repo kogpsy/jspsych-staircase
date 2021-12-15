@@ -1,9 +1,37 @@
 {
   "name": "jspsych-staircase",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "A small framework that integrates with jsPsych to build staircase method timelines.",
-  "main": "src/lib.js",
+  "main": "dist/jspsych-staircase.js",
   "author": "Robin Bürkli <robuba.jr@gmx.ch>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@types/bluebird": "*",
+    "@types/jest": "^27.0.3",
+    "@types/node": "*",
+    "jest": "^27.4.5",
+    "prettier": "2.5.1",
+    "rollup": "^2.61.1",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "ts-jest": "^27.1.1",
+    "ts-node": "^10.4.0",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "^4.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kogpsy/jspsych-staircase"
+  },
+  "keywords": [
+    "jsPsych"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "test": "jest",
+    "fmt": "prettier --write ."
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
