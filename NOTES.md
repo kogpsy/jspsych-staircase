@@ -8,7 +8,7 @@ Probably just exposes one function, e.g. `generateStaircaseTimeline()`.
 
 In:
 
-- TODO: difficulty: e.g. more coherence is easier, but more distractors is harder, figure out how to generalize. probably not in docs
+- TODO: difficulty: e.g. more coherence is easier, but more distractors is harder, figure out how to generalize. probably note in docs
 
 ```javascript
 config = {
