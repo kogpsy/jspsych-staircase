@@ -1,4 +1,11 @@
-// Types
+/*
+ * jspsych-staircase
+ *
+ * Author: Robin Bürkli <robuba.jr@gmx.ch>
+ * License: MIT
+ *
+ * This file contains custom types.
+ */
 
 // Type for the return object of the calculateStats() function
 export type CycleStats = {

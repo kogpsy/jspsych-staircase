@@ -8,8 +8,8 @@
  * a jsPsych experiment.
  */
 
-import { parse } from 'path/posix';
-import { parseConfig } from './config';
+// Import helper
+import { calculateCyclePerformance } from './cyclePerformanceCalculator';
 
 // Import types
 import { Configuration, Difficulty, CycleStats } from './types';
@@ -21,8 +21,6 @@ import { Configuration, Difficulty, CycleStats } from './types';
  * @returns Timeline
  */
 export const generateStaircaseTimeline = (conf: Configuration): any => {
-  // Make sure the configuration object is valid
-  parseConfig(conf);
   // Initialize cycles counter
   let cyclesCarriedOut: number = 0;
   // Define the loop node
@@ -38,7 +36,7 @@ export const generateStaircaseTimeline = (conf: Configuration): any => {
       const wasLastCycle: boolean =
         cyclesCarriedOut >= conf.numberOfCycles ? true : false;
       // Evaluate accuracy using a helper (defined below)
-      const { accuracy, adjustedDifficulty } = calculateStats(
+      const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
         data,
         conf.difficulty,
         conf.dataLabel,
@@ -60,48 +58,4 @@ export const generateStaircaseTimeline = (conf: Configuration): any => {
   };
   // Then return the loop node
   return cycleLoop;
-};
-
-/**
- * Calculates performance in the previous cycle and suggests a new difficulty
- *
- * @param data A jsPsych data object containing the trials of interest
- * @param difficulty A difficulty object containing max, min, set and get fields
- * @param dataLabel The label which should be present on the trials of interest
- * @param targetAccuracy The desired target accuracy
- * @returns {CycleStats} An object containing the accuracy of the past cycle as
- * well as the adjusted difficulty
- */
-const calculateStats = (
-  data: any,
-  difficulty: Difficulty,
-  dataLabel: string,
-  targetAccuracy: number
-): CycleStats => {
-  // Calculate the difference between max and min
-  const difficultyRange: number = difficulty.max - difficulty.min;
-  // Grab all relevant trials according to dataLabel parameter
-  const relevantTrials: any = data.filter({ data_label: dataLabel });
-  // Count the correct responses
-  const numberOfCorrectResponses: number = relevantTrials
-    .filter({ correct: true })
-    .count();
-  // Calculate accuracy based on correct responses
-  const accuracy: number = numberOfCorrectResponses / relevantTrials.count();
-  // Adjust difficulty by half the deviation from measured to target accuracy.
-  // Example: If the measured accuracy is 20% higher than the target accuracy,
-  // increase difficulty by 10%.
-  let adjustedDifficulty: number =
-    difficulty.get() + ((accuracy - targetAccuracy) / 2) * difficultyRange;
-  // Make sure we remain in the bounds
-  if (adjustedDifficulty > difficulty.max) {
-    adjustedDifficulty = difficulty.max;
-  } else if (adjustedDifficulty < difficulty.min) {
-    adjustedDifficulty = difficulty.min;
-  }
-  // Return a CycleStats object
-  return {
-    accuracy,
-    adjustedDifficulty,
-  };
 };
