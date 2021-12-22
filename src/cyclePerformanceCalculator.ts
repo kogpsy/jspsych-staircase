@@ -41,10 +41,18 @@ export const calculateCyclePerformance = (
   let adjustedDifficulty: number =
     difficulty.get() + ((accuracy - targetAccuracy) / 2) * difficultyRange;
   // Make sure we remain in the bounds
-  if (adjustedDifficulty > difficulty.max) {
-    adjustedDifficulty = difficulty.max;
-  } else if (adjustedDifficulty < difficulty.min) {
-    adjustedDifficulty = difficulty.min;
+  if (difficulty.max > difficulty.min) {
+    if (adjustedDifficulty > difficulty.max) {
+      adjustedDifficulty = difficulty.max;
+    } else if (adjustedDifficulty < difficulty.min) {
+      adjustedDifficulty = difficulty.min;
+    }
+  } else if (difficulty.min > difficulty.max) {
+    if (adjustedDifficulty > difficulty.min) {
+      adjustedDifficulty = difficulty.min;
+    } else if (adjustedDifficulty < difficulty.max) {
+      adjustedDifficulty = difficulty.max;
+    }
   }
   // Return a CycleStats object
   return {
