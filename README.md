@@ -107,7 +107,31 @@ const cycle = {
 };
 ```
 
-See the comments to learn what piece of this code does what exactly. If things remain unclear, it might be a good idea to read through the [jsPsych documentation][2].
+See the comments to learn what each piece of this code does exactly. If things remain unclear, it might be a good idea to read through the [jsPsych documentation][2], as this is mostly just jsPsych syntax.
+
+Now we have the major building blocks to generate the staircase method timeline. To do so, call the `generateStaircaseTimeline()` function and pass a config object as a parameter:
+
+```javascript
+const staircaseTimeline = generateStaircaseTimeline({
+  // Your jsPsych instance (required to fetch data)
+  jsPsychInstance: jsPsych,
+  // The target accurcy (between 0 and 1)
+  targetAccuracy: 0.7,
+  // The number of cycles to be carried out
+  numberOfCycles: 5,
+  // The difficulty object
+  difficulty: difficultyStaircase,
+  // The data label. Must be the same string that you added to the response
+  // trials.
+  dataLabel: 'staircase',
+  // And finally your cycle.
+  cycle,
+});
+// Add it to your main timeline (may be called differently in your porject)
+timeline.push(staircaseTimeline);
+```
+
+If you run the experiment, you will notice that the words are being displayed shorter and shorter over time. For all configuration options, see the section below.
 
 ## Configuration reference
 
