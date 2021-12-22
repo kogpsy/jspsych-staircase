@@ -4,10 +4,6 @@
 
 A small framework that integrates with jsPsych to build staircase method timelines.
 
-- `yarn run build` to build library with rollup
-- `yarn run fmt` to format code with prettier
-- `yarn run test` to run tests with jest
-
 ## How to use
 
 With the staircase method, one can measure individual perceptual thresholds. It can be used as a calibration which preceeds the actual experiment, to make sure the collected data points are clustered around the psychometric threshold.
@@ -25,3 +21,23 @@ A **cycle** is one run during which multiple presentations take place, and after
 The full **staircase procedure** consists of a certain number of cycles.
 
 ### Example
+
+## Configuration reference
+
+## Development
+
+Available scripts:
+
+### `yarn run build`
+
+Build and bundle the library with rollup. A JavaScript bundle as well as TypeScript declarations are placed in the `dist/` directory.
+
+### `yarn run fmt`
+
+Format the code with prettier. See `.prettierrc.json` for configuration options.
+
+### `yarn run test`
+
+Run tests with Jest. To add new tests, simply create a `*.test.ts` file containing Jest tests. Refer to the [Jest documentation][1] for an in-depth tutorial.
+
+[1]: https://jestjs.io/docs/getting-started
