@@ -2,6 +2,8 @@
 
 A small framework that integrates with jsPsych to build staircase method timelines.
 
+[![npm version](https://badge.fury.io/js/@kogpsy%2Fjspsych-staircase.svg)](https://badge.fury.io/js/@kogpsy%2Fjspsych-staircase)
+
 ## How to use
 
 With the staircase method, one can measure individual perceptual thresholds. It can be used as a calibration which preceeds the actual experiment, to make sure the collected data points are clustered around the psychometric threshold.
