@@ -12,7 +12,7 @@
 import { calculateCyclePerformance } from './cyclePerformanceCalculator';
 
 // Import types
-import { Configuration, Difficulty, CycleStats } from './types';
+import { Configuration } from './types';
 
 /**
  * Generates a configurable jsPsych staircase method timeline
@@ -45,12 +45,14 @@ export const generateStaircaseTimeline = (conf: Configuration): any => {
       // Set the difficulty using the provided setter
       conf.difficulty.set(adjustedDifficulty);
       // Call back and notify about progress
-      conf.postCycleCallback({
-        adjustedDifficulty,
-        cycleAccuracy: accuracy,
-        cyclesCarriedOut,
-        finished: wasLastCycle,
-      });
+      if (conf.postCycleCallback) {
+        conf.postCycleCallback({
+          adjustedDifficulty,
+          cycleAccuracy: accuracy,
+          cyclesCarriedOut,
+          finished: wasLastCycle,
+        });
+      }
 
       // If this was the last cycle, break the loop by returning false
       return wasLastCycle ? false : true;

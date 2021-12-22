@@ -25,7 +25,7 @@ export type Configuration = {
   targetAccuracy: number;
   numberOfCycles: number;
   dataLabel: string;
-  postCycleCallback: (cycleData: {
+  postCycleCallback?: (cycleData: {
     adjustedDifficulty: number;
     cycleAccuracy: number;
     cyclesCarriedOut: number;
