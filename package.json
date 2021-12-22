@@ -1,6 +1,6 @@
 {
-  "name": "jspsych-staircase",
-  "version": "0.9.0",
+  "name": "@kogpsy/jspsych-staircase",
+  "version": "1.0.0",
   "description": "A small framework that integrates with jsPsych to build staircase method timelines.",
   "main": "dist/jspsych-staircase.js",
   "types": "dist/jspsych-staircase.d.ts",
@@ -9,7 +9,6 @@
   ],
   "author": "Robin Bürkli <robuba.jr@gmx.ch>",
   "license": "MIT",
-  "private": true,
   "devDependencies": {
     "@types/bluebird": "*",
     "@types/jest": "^27.0.3",
@@ -38,6 +37,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {}
+  }
 }
