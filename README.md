@@ -131,9 +131,22 @@ const staircaseTimeline = generateStaircaseTimeline({
 timeline.push(staircaseTimeline);
 ```
 
-If you run the experiment, you will notice that the words are being displayed shorter and shorter over time. For all configuration options, see the section below.
+`jspsych-staircase` just generated a timeline for you, which will run your cycle 5 times and after each run it will adjust the difficulty according to the participant's performance.
+
+For all configuration options, see the section below.
 
 ## Configuration reference
+
+The framework exposes one function which generates a jsPsych timeline based on the configuration object passed to it. Here you find all possible configuration options.
+
+| Parameter                    | Type     | Description                                                                                                                                                             |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| jsPsychInstance              | any      | The jsPsych instance of your experiment.                                                                                                                                |
+| targetAccuracy               | number   | The desired accuracy. This must be a number between 0 and 1.                                                                                                            |
+| numberOfCycles               | number   | The number of cycles that should be carried out in total.                                                                                                               |
+| dataLabel                    | string   | The label you add to your response trial's data object. This is used internally to identify the relevant trials. See the example above, this should make it more clear. |
+| cycle                        | any      | A jsPsych node that describes one cycle. Again, see the example above for a more information.                                                                           |
+| postCycleCallback (Optional) | function | A function which gets called after each cycle. It receives an object containing some information, most importantly the adjusted difficulty and the cycle accuracy.      |
 
 ## Development
 
