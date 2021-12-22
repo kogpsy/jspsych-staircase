@@ -15,6 +15,7 @@
     "@types/jest": "^27.0.3",
     "@types/node": "*",
     "jest": "^27.4.5",
+    "jspsych": "^7.1.2",
     "prettier": "2.5.1",
     "rollup": "^2.61.1",
     "rollup-plugin-ts": "^2.0.4",
