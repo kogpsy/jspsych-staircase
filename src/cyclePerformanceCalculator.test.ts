@@ -92,3 +92,61 @@ test('calculates a cycle performance with smaller difficulty means bigger diffic
   expect(accuracy).toBe(0.6);
   expect(adjustedDifficulty).toBe(55);
 });
+
+// Checks if the difficulty remains inside the bounds (does not go below min or
+// above max)
+test('calculates a cycle performance hitting bounds using regular scale', () => {
+  // Create a difficulty variable
+  let difficulty = 4;
+
+  // Calculate the stats
+  const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
+    data,
+    {
+      max: 100,
+      min: 0,
+      get: (): number => {
+        return difficulty;
+      },
+      set: (value: number) => {
+        difficulty = value;
+      },
+    },
+    'data',
+    0.7
+  );
+  // And perform tests
+  expect(accuracy).toBe(0.6);
+  // Without bound control it would drop to -1, but it should get set to
+  // difficulty.min if everything works properly
+  expect(adjustedDifficulty).toBe(0);
+});
+
+// Checks if the difficulty remains inside the bounds (does not go above min or
+// below max -> inverse scale is used)
+test('calculates a cycle performance hitting bounds using inverse scale', () => {
+  // Create a difficulty variable
+  let difficulty = 96;
+
+  // Calculate the stats
+  const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
+    data,
+    {
+      max: 0,
+      min: 100,
+      get: (): number => {
+        return difficulty;
+      },
+      set: (value: number) => {
+        difficulty = value;
+      },
+    },
+    'data',
+    0.7
+  );
+  // And perform tests
+  expect(accuracy).toBe(0.6);
+  // Without bound control it would drop to -1, but it should get set to
+  // difficulty.min if everything works properly
+  expect(adjustedDifficulty).toBe(100);
+});
