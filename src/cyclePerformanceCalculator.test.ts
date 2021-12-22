@@ -8,7 +8,6 @@
  */
 
 import { calculateCyclePerformance } from './cyclePerformanceCalculator';
-import { Difficulty } from './types';
 import { initJsPsych } from 'jspsych';
 
 // Mock a DataCollection object
@@ -44,7 +43,6 @@ data.push({
 test('calculates a cycle performance', () => {
   // Create a difficulty variable
   let difficulty = 0.5;
-
   // Calculate the stats
   const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
     data,
@@ -71,7 +69,6 @@ test('calculates a cycle performance', () => {
 test('calculates a cycle performance with smaller difficulty means bigger difficulty', () => {
   // Create a difficulty variable
   let difficulty = 50;
-
   // Calculate the stats
   const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
     data,
@@ -98,7 +95,6 @@ test('calculates a cycle performance with smaller difficulty means bigger diffic
 test('calculates a cycle performance hitting bounds using regular scale', () => {
   // Create a difficulty variable
   let difficulty = 4;
-
   // Calculate the stats
   const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
     data,
@@ -127,7 +123,6 @@ test('calculates a cycle performance hitting bounds using regular scale', () => 
 test('calculates a cycle performance hitting bounds using inverse scale', () => {
   // Create a difficulty variable
   let difficulty = 96;
-
   // Calculate the stats
   const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
     data,
@@ -149,4 +144,34 @@ test('calculates a cycle performance hitting bounds using inverse scale', () => 
   // Without bound control it would drop to -1, but it should get set to
   // difficulty.min if everything works properly
   expect(adjustedDifficulty).toBe(100);
+});
+
+// Test if things work with a custom difficulty adjuster function
+test('calculates a cycle performance using a custom adjuster function', () => {
+  // Create a difficulty variable
+  let difficulty = 50;
+  // Calculate the stats
+  const { accuracy, adjustedDifficulty } = calculateCyclePerformance(
+    data,
+    {
+      max: 100,
+      min: 0,
+      get: (): number => {
+        return difficulty;
+      },
+      set: (value: number) => {
+        difficulty = value;
+      },
+    },
+    'data',
+    0.7,
+    // Define a custom difficulty adjuster function
+    (diff, acc, targetAcc) => {
+      const diffRange = diff.max - diff.min;
+      return diff.get() + (acc - targetAcc) * diffRange;
+    }
+  );
+  // And perform tests
+  expect(accuracy).toBe(0.6);
+  expect(adjustedDifficulty).toBe(40);
 });

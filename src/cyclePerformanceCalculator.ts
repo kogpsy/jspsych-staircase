@@ -7,7 +7,7 @@
  * This file contains a helper to calculate cycle performance
  */
 
-import { Difficulty, CycleStats } from './types';
+import { Difficulty, CycleStats, CustomDifficultyAdjuster } from './types';
 
 /**
  * Calculates performance in the previous cycle and suggests a new difficulty
@@ -23,7 +23,8 @@ export const calculateCyclePerformance = (
   data: any,
   difficulty: Difficulty,
   dataLabel: string,
-  targetAccuracy: number
+  targetAccuracy: number,
+  customDifficultyAdjuster?: CustomDifficultyAdjuster
 ): CycleStats => {
   // Calculate the difference between max and min
   const difficultyRange: number = difficulty.max - difficulty.min;
@@ -35,11 +36,20 @@ export const calculateCyclePerformance = (
     .count();
   // Calculate accuracy based on correct responses
   const accuracy: number = numberOfCorrectResponses / relevantTrials.count();
-  // Adjust difficulty by half the deviation from measured to target accuracy.
-  // Example: If the measured accuracy is 20% higher than the target accuracy,
-  // increase difficulty by 10%.
-  let adjustedDifficulty: number =
-    difficulty.get() + ((accuracy - targetAccuracy) / 2) * difficultyRange;
+  let adjustedDifficulty: number;
+  if (customDifficultyAdjuster) {
+    adjustedDifficulty = customDifficultyAdjuster(
+      difficulty,
+      accuracy,
+      targetAccuracy
+    );
+  } else {
+    // Adjust difficulty by half the deviation from measured to target accuracy.
+    // Example: If the measured accuracy is 20% higher than the target accuracy,
+    // increase difficulty by 10%.
+    adjustedDifficulty =
+      difficulty.get() + ((accuracy - targetAccuracy) / 2) * difficultyRange;
+  }
   // Make sure we remain in the bounds
   if (difficulty.max > difficulty.min) {
     if (adjustedDifficulty > difficulty.max) {

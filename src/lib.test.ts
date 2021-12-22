@@ -29,9 +29,6 @@ test('uses generateStaircaseTimeline() to generate a jsPsych timeline', () => {
         return 1;
       },
     },
-    postCycleCallback: (cycleData) => {
-      console.log(cycleData);
-    },
     cycle: {
       timeline: ['not', 'relevant'],
     },
