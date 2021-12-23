@@ -14,6 +14,9 @@ import { calculateCyclePerformance } from './cyclePerformanceCalculator';
 // Import types
 import { Configuration } from './types';
 
+// Re-export types to make them available to consumers
+export { PostCycleCallbackData, Difficulty, Configuration } from './types';
+
 /**
  * Generates a configurable jsPsych staircase method timeline
  *
