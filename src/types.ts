@@ -12,6 +12,16 @@ export type CycleStats = {
   accuracy: number;
   adjustedDifficulty: number;
 };
+// Type for the parameter that is passed to the postCycleCallback function if it
+// is provided
+export type PostCycleCallbackData = {
+  adjustedDifficulty: number;
+  cycleAccuracy: number;
+  cyclesCarriedOut: number;
+  finished: boolean;
+};
+// Type for the function that can be supplied to customize how difficulty is
+// adjusted after each trial
 export type CustomDifficultyAdjuster = (
   difficulty: Difficulty,
   accuracy: number,
@@ -32,11 +42,6 @@ export type Configuration = {
   dataLabel: string;
   difficulty: Difficulty;
   cycle: any;
-  postCycleCallback?: (cycleData: {
-    adjustedDifficulty: number;
-    cycleAccuracy: number;
-    cyclesCarriedOut: number;
-    finished: boolean;
-  }) => void;
+  postCycleCallback?: (cycleData: PostCycleCallbackData) => void;
   customDifficultyAdjuster?: CustomDifficultyAdjuster;
 };
